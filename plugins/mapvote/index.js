@@ -126,7 +126,7 @@ export default function(server, layerFilter = {}, options = {}) {
         `AdminWarn "${info.steamID}" You voted for ${layer}.`
       );
       server.rcon.execute(
-        `AdminWarn "${info.steamID} Powered by: ${COPYRIGHT_MESSAGE}`
+        `AdminWarn "${info.steamID}" Powered by: ${COPYRIGHT_MESSAGE}`
       );
 
       // check for new winner
