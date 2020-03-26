@@ -1,6 +1,8 @@
 import EventEmitter from 'events';
-
 import net from 'net';
+
+import moment from 'moment';
+
 import RCONProtocol from './protocol.js';
 
 import { RCON_CHAT_MESSAGE, RCON_ERROR } from '../events/rcon.js';
@@ -242,7 +244,7 @@ export default class Rcon {
           steamID: message[2],
           player: message[3],
           message: message[4],
-          time: new Date()
+          time: moment.utc().toDate()
         });
       } else if (decodedPacket.id === RCONProtocol.ID_END) {
         if (this.ignoreNextEndPacket) {

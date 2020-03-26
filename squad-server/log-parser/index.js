@@ -71,7 +71,7 @@ export default class LogParser {
       const match = line.match(rule.regex);
 
       if (match) {
-        match[1] = moment(match[1], 'YYYY.MM.DD-hh.mm.ss:SSS').toDate();
+        match[1] = moment.utc(match[1], 'YYYY.MM.DD-hh.mm.ss:SSS').toDate();
         match[2] = parseInt(match[2]);
         rule.action(match, this);
         if (canBreak) break;
