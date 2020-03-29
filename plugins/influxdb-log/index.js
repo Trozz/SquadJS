@@ -38,7 +38,13 @@ export default function influxdbLog(server) {
     InfluxDBConnector.writePoint({
       measurement: 'Match',
       tags: { server: server.id },
-      fields: { map: info.map, layer: info.layer },
+      fields: {
+        dlc: info.dlc,
+        mapClassname: info.mapClassname,
+        layerClassname: info.layerClassname,
+        map: info.map,
+        layer: info.layer
+      },
       timestamp: info.time
     });
   });

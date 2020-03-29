@@ -32,6 +32,9 @@ CREATE TABLE IF NOT EXISTS `PlayerCount` (
 CREATE TABLE IF NOT EXISTS `Match` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `server` INT NOT NULL,
+    `dlc` VARCHAR(255),
+    `mapClassname` VARCHAR(255),
+    `layerClassname` VARCHAR(255),
     `map` VARCHAR(255),
     `layer` VARCHAR(255),
     `startTime` TIMESTAMP NOT NULL,
@@ -132,12 +135,31 @@ DELIMITER #
 CREATE PROCEDURE `NewMatch` (
     IN `p_server` INT,
     IN `p_time` TIMESTAMP,
+    IN `p_dlc` VARCHAR(255),
+    IN `p_mapClassname` VARCHAR(255),
+    IN `p_layerClassname` VARCHAR(255),
     IN `p_map` VARCHAR(255),
     IN `p_layer` VARCHAR(255)
 )
 BEGIN
     UPDATE `Match` SET `endTime` = `p_time` WHERE `server` = `p_server` AND `endTime` IS NULL;
-    INSERT INTO `Match` (`server`, `startTime`, `map`, `layer`) VALUES (`p_server`, `p_time`, `p_map`, `p_layer`);
+    INSERT INTO `Match` (
+        `server`,
+        `startTime`,
+        `dlc`
+        `mapClassname`,
+        `layerClassname`,
+        `map`,
+        `layer`
+    ) VALUES (
+        `p_server`,
+        `p_time`,
+        `p_dlc`
+        `p_mapClassname`,
+        `p_layerClassname`,
+        `p_map`,
+        `p_layer`
+    );
 END#
 DELIMITER ;
 
