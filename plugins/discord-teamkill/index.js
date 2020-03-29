@@ -22,7 +22,6 @@ export default async function plugin(server, channelID, options = {}) {
   );
 
   server.on(LOG_PARSER_TEAMKILL, info => {
-    // ignore suicides
     if (!info.attacker) return;
 
     channel.send({
@@ -31,16 +30,44 @@ export default async function plugin(server, channelID, options = {}) {
         color: options.color,
         fields: [
           {
-            name: 'Attacker',
-            value: info.attacker.name || 'Unknown'
+            name: "Attacker's Name",
+            value: info.attacker.name || 'Unknown',
+            inline: true
+          },
+          {
+            name: "Attacker's SteamID",
+            value: info.attacker.steamID
+              ? `[${info.attacker.steamID}](https://steamcommunity.com/profiles/${info.attacker.steamID})`
+              : 'Unknown',
+            inline: true
+          },
+          {
+            name: 'Squad Community Ban List',
+            value: info.attacker.steamID
+              ? `[Attacker's Bans](https://squad-community-ban-list.com/search/${info.attacker.steamID})`
+              : 'Cannot find page.'
           },
           {
             name: 'Weapon',
             value: info.weapon || 'Unknown'
           },
           {
-            name: 'Victim',
-            value: info.victim.name || 'Unknown'
+            name: "Victim's Name",
+            value: info.victim.name || 'Unknown',
+            inline: true
+          },
+          {
+            name: "Victim's SteamID",
+            value: info.victim.steamID
+              ? `[${info.victim.steamID}](https://steamcommunity.com/profiles/${info.victim.steamID})`
+              : 'Unknown',
+            inline: true
+          },
+          {
+            name: 'Squad Community Ban List',
+            value: info.victim.steamID
+              ? `[Victim's Bans](https://squad-community-ban-list.com/search/${info.victim.steamID})`
+              : 'Cannot find page.'
           }
         ],
         timestamp: info.time.toISOString(),
