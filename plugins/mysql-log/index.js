@@ -30,9 +30,10 @@ export default function mysqlLog(server) {
   });
 
   server.on(LOG_PARSER_NEW_GAME, info => {
-    MySQLConnector.getPool().query('call NewMatch(?,?,?,?,?,?)', [
+    MySQLConnector.getPool().query('call NewMatch(?,?,?,?,?,?,?)', [
       server.id,
       info.time,
+      info.dlc,
       info.mapClassname,
       info.layerClassname,
       info.map,
