@@ -22,3 +22,6 @@ await discordTeamkill(
   }
 );
 ```
+
+## Example
+<img src="example.jpg" alt="Logo" width="500"/>
