@@ -42,12 +42,6 @@ export default async function plugin(server, channelID, options = {}) {
             inline: true
           },
           {
-            name: 'Squad Community Ban List',
-            value: info.attacker.steamID
-              ? `[Attacker's Bans](https://squad-community-ban-list.com/search/${info.attacker.steamID})`
-              : 'Cannot find page.'
-          },
-          {
             name: 'Weapon',
             value: info.weapon || 'Unknown'
           },
@@ -65,9 +59,15 @@ export default async function plugin(server, channelID, options = {}) {
           },
           {
             name: 'Squad Community Ban List',
-            value: info.victim.steamID
-              ? `[Victim's Bans](https://squad-community-ban-list.com/search/${info.victim.steamID})`
-              : 'Cannot find page.'
+            value: `${
+              info.attacker.steamID
+                ? `[Attacker's Bans](https://squad-community-ban-list.com/search/${info.attacker.steamID})`
+                : "Cannot find attacker's ban page."
+            }\n${
+              info.victim.steamID
+                ? `[Victims's Bans](https://squad-community-ban-list.com/search/${info.victim.steamID})`
+                : "Cannot find victims's ban page."
+            }`
           }
         ],
         timestamp: info.time.toISOString(),
