@@ -146,7 +146,7 @@ BEGIN
     INSERT INTO `Match` (
         `server`,
         `startTime`,
-        `dlc`
+        `dlc`,
         `mapClassname`,
         `layerClassname`,
         `map`,
@@ -154,7 +154,7 @@ BEGIN
     ) VALUES (
         `p_server`,
         `p_time`,
-        `p_dlc`
+        `p_dlc`,
         `p_mapClassname`,
         `p_layerClassname`,
         `p_map`,

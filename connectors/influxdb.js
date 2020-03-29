@@ -35,6 +35,9 @@ class InfluxDBConnector {
         {
           measurement: 'Match',
           fields: {
+            dlc: Influx.FieldType.STRING,
+            mapClassname: Influx.FieldType.STRING,
+            layerClassname: Influx.FieldType.STRING,
             map: Influx.FieldType.STRING,
             layer: Influx.FieldType.STRING
           },
