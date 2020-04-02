@@ -22,7 +22,9 @@ function shuffle(array) {
 
 export default function(server, options = {}) {
   if (!server)
-    throw new Error('Mapvote must be provided with a reference to the server.');
+    throw new Error(
+      'TeamRandomizer must be provided with a reference to the server.'
+    );
 
   const command = options.command || '!randomize';
   const commandRegex = new RegExp(`^${command}`, 'i');

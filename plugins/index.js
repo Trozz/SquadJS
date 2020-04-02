@@ -4,6 +4,7 @@ import discordTeamkill from './discord-teamkill/index.js';
 import influxdbLog from './influxdb-log/index.js';
 import mapvote from './mapvote/index.js';
 import mysqlLog from './mysql-log/index.js';
+import seedingMessage from './seeding-message/index.js';
 import teamRandomizer from './team-randomizer/index.js';
 
 export {
@@ -13,5 +14,6 @@ export {
   influxdbLog,
   mapvote,
   mysqlLog,
+  seedingMessage,
   teamRandomizer
 };

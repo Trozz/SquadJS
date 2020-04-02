@@ -70,6 +70,8 @@ yarn install
  * [Map Vote](https://github.com/Thomas-Smyth/SquadJS/tree/master/plugins/mapvote) - In-game chat map voting system.
  * [InfluxDB Log](https://github.com/Thomas-Smyth/SquadJS/tree/master/plugins/influxdb-log) - Log information to InfluxDB.
  * [MySQL Log](https://github.com/Thomas-Smyth/SquadJS/tree/master/plugins/mysql-log) - Log more in-depth information to MySQL.
+ * [Seeding Message](https://github.com/Thomas-Smyth/SquadJS/tree/master/plugins/seeding-message) - Display seeding messages for seeding mode.
+ * [Team Randomizer](https://github.com/Thomas-Smyth/SquadJS/tree/master/plugins/team-randomizer) - Randomize teams to help with team balance.
  
  ## License
  ```

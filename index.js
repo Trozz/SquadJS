@@ -5,7 +5,8 @@ import {
   discordTeamkill,
   influxdbLog,
   mapvote,
-  mysqlLog
+  mysqlLog,
+  seedingMessage
 } from 'plugins';
 
 async function main() {
@@ -28,6 +29,7 @@ async function main() {
 
   // in game features
   mapvote(server);
+  seedingMessage(server);
 
   await server.watch();
 }
