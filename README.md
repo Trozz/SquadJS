@@ -52,14 +52,8 @@ LogSquadScorePoints=verbose
  * Some plugins may have additional requirements.
  
 ### Installation
-1. Clone the repository:
-```
-git clone https://github.com/Thomas-Smyth/SquadJS
-```
-2. Install the dependencies:
-```
-yarn install
-```
+1. Clone the repository: `git clone https://github.com/Thomas-Smyth/SquadJS`
+2. Install the dependencies: `yarn install`
 3. Copy the [`core/config-example.js`](https://github.com/Thomas-Smyth/SquadJS/blob/master/core/config-example.js) to `core/config.js` and fill in the information inside the file. Note, if you do not use any plugins that rely on the associated config values then they can be left blank.
 4. Configure the `index.js` file with your server information and the required plugins.
 5. Start SquadJS: `node index.js`.
