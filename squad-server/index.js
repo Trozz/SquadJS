@@ -15,28 +15,12 @@ export default class Server extends EventEmitter {
     // store options
     if (!('id' in options)) throw new Error('Server must have an ID.');
     this.id = options.id;
-    this.host = options.host;
+
     this.updateInterval = options.updateInterval || 30 * 1000;
 
     // setup additional classes
-    this.rcon = new Rcon(
-      {
-        host: options.host,
-        port: options.rconPort,
-        password: options.rconPassword,
-        verbose: options.rconVerbose
-      },
-      this
-    );
-
-    this.logParser = new LogParser(
-      {
-        logDir: options.logDir,
-        testMode: options.logParserTestMode,
-        testModeFileName: options.logParserTestModeFileName
-      },
-      this
-    );
+    this.rcon = new Rcon(options, this);
+    this.logParser = new LogParser(options, this);
 
     // setup internal data storage
     this.layerHistory = options.layerHistory || [];
@@ -55,12 +39,12 @@ export default class Server extends EventEmitter {
   }
 
   async watch() {
-    if (this.logParser) this.logParser.watch();
+    if (this.logParser) await this.logParser.watch();
     if (this.rcon) await this.rcon.watch();
   }
 
   async unwatch() {
-    if (this.logParser) this.logParser.unwatch();
+    if (this.logParser) await this.logParser.unwatch();
     if (this.rcon) await this.rcon.unwatch();
   }
 

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "exports": {
-    "./config": "./config.js"
+    "./config": "./config.js",
+    "./utils/sleep": "./utils/sleep.js"
   }
 }

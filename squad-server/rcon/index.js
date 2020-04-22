@@ -12,13 +12,14 @@ export default class Rcon {
     if (!options.host) throw new Error('Host must be specified.');
     this.host = options.host;
 
-    if (!options.port) throw new Error('RCON port must be specified.');
-    this.port = options.port;
+    if (!options.rconPort) throw new Error('RCON port must be specified.');
+    this.port = options.rconPort;
 
-    if (!options.password) throw new Error('RCON password must be specified.');
-    this.password = options.password;
+    if (!options.rconPassword)
+      throw new Error('RCON password must be specified.');
+    this.password = options.rconPassword;
 
-    this.verboseEnabled = options.verbose || false;
+    this.verboseEnabled = options.rconVerbose || false;
 
     this.emitter = emitter || new EventEmitter();
 
