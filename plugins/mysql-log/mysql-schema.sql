@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `ServerTickRate` (
 CREATE TABLE IF NOT EXISTS `PlayerCount` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `server` INT NOT NULL,
+    `time` TIMESTAMP NOT NULL,
     `player_count` FLOAT NOT NULL,
 
     FOREIGN KEY (`server`) REFERENCES `Server`(`id`)
