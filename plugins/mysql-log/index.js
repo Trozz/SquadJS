@@ -24,7 +24,7 @@ export default function mysqlLog(server) {
 
   server.on(SERVER_PLAYERS_UPDATED, players => {
     MySQLConnector.getPool().query(
-      'INSERT INTO PlayerCount(time, server, tick_rate) VALUES (NOW(),?,?)',
+      'INSERT INTO PlayerCount(time, server, player_count) VALUES (NOW(),?,?)',
       [server.id, players.length]
     );
   });
