@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `Server` (
 CREATE TABLE IF NOT EXISTS `ServerTickRate` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `server` INT NOT NULL,
+    `time` TIMESTAMP NOT NULL,
     `tick_rate` FLOAT NOT NULL,
 
     FOREIGN KEY (`server`) REFERENCES `Server`(`id`)
