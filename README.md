@@ -11,6 +11,9 @@
 <br><br>
 </div>
 
+## Important Notice
+**SquadJS has yet to be converted fully to support Squad B19. Work is actively underway to do this. For updates, please join the Squad RCON Discord.**
+
 ## About
 SquadJS is a scripting framework, designed for Squad servers, that aims to handle all communication and data collection to and from the servers. Using SquadJS as the base to any of your scripting projects allows you to easily write complex plugins without having to worry about the hassle of RCON or log parsing. However, for your convenience SquadJS comes shipped with multiple plugins already built for you allowing you to experience the power of SquadJS right away.
 

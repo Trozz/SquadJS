@@ -48,29 +48,53 @@ export default class Server extends EventEmitter {
     this.on(LOG_PARSER_NEW_GAME, this.onLayerChange.bind(this));
 
     // setup period updaters
-    setInterval(async () => {
-      this.players = await this.rcon.listPlayers();
-      this.emit(SERVER_PLAYERS_UPDATED, this.players);
-    }, this.updateInterval);
+    this.updatePlayerTimeout = setTimeout(
+      this.updatePlayers,
+      this.updateInterval
+    );
   }
 
   async watch() {
     if (this.logParser) this.logParser.watch();
     if (this.rcon) await this.rcon.watch();
+    console.log('Watching...');
   }
 
   async unwatch() {
     if (this.logParser) this.logParser.unwatch();
     if (this.rcon) await this.rcon.unwatch();
+    console.log('Stopped watching.');
   }
 
-  getPlayerByName(name) {
-    const matchingPlayers = [];
+  async updatePlayers() {
+    clearTimeout(this.updatePlayerTimeout);
 
-    for (const player of this.players) {
-      if (player.name !== name) continue;
-      matchingPlayers.push(player);
-    }
+    this.players = await this.rcon.listPlayers();
+    this.emit(SERVER_PLAYERS_UPDATED, this.players);
+
+    this.updatePlayerTimeout = setTimeout(
+      this.updatePlayers,
+      this.updateInterval
+    );
+  }
+
+  async getPlayerByName(name) {
+    let forceUpdated = false;
+    let matchingPlayers = [];
+
+    do {
+      matchingPlayers = [];
+
+      for (const player of this.players) {
+        if (player.name !== name) continue;
+        matchingPlayers.push(player);
+      }
+
+      if (matchingPlayers.length === 0) {
+        this.players = await this.updatePlayers();
+        forceUpdated = true;
+      }
+    } while (!forceUpdated);
 
     if (matchingPlayers.length === 1) return matchingPlayers[0];
     else return null;

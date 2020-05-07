@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
+    "cli-progress": "^3.8.2",
     "core": "1.0.0",
     "moment": "^2.24.0",
     "tail": "^2.0.3"

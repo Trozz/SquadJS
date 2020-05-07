@@ -5,24 +5,26 @@ import readline from 'readline';
 import moment from 'moment';
 import TailModule from 'tail';
 
-import ConnectionHandler from './utils/connection-handler.js';
-import InjuryHandler from './utils/injury-handler.js';
+import Server from '../index.js';
 import rules from './rules/index.js';
-import EventEmitter from 'events';
 
-const { Tail } = TailModule;
+const onNonMatchRules = rules.filter(
+  rule => typeof rule.onNonMatch === 'function'
+);
+const onMatchRules = rules.filter(
+  rule => typeof rule.onNonMatch !== 'function'
+);
 
 export default class LogParser {
-  constructor(options = {}, emitter) {
+  constructor(options = {}, server) {
     if (!options.logDir) throw new Error('Log Directory must be specified.');
     this.logDir = options.logDir;
     this.testMode = options.testMode || false;
     this.fileName = options.testModeFileName || 'SquadGame.log';
 
-    this.connectionHandler = new ConnectionHandler();
-    this.injuryHandler = new InjuryHandler();
-
-    this.emitter = emitter || new EventEmitter();
+    if (!(server instanceof Server))
+      throw new Error('Server not an instance of a SquadJS server.');
+    this.server = server;
 
     this.setup();
   }
@@ -36,7 +38,7 @@ export default class LogParser {
       this.reader.pause();
     } else {
       /* In normal mode, we tail the file to get new lines as and when they are added */
-      this.reader = new Tail(path.join(this.logDir, this.fileName), {
+      this.reader = new TailModule.Tail(path.join(this.logDir, this.fileName), {
         useWatchFile: true
       });
     }
@@ -60,24 +62,26 @@ export default class LogParser {
   }
 
   handleLine(line) {
-    let canBreak = false;
-
-    for (const rule of rules) {
-      if (rule === 'END_NO_MATCH_ACTION') {
-        canBreak = true;
-        continue;
-      }
-
+    for (const rule of onNonMatchRules) {
       const match = line.match(rule.regex);
 
       if (match) {
         match[1] = moment.utc(match[1], 'YYYY.MM.DD-hh.mm.ss:SSS').toDate();
         match[2] = parseInt(match[2]);
-        rule.action(match, this);
-        if (canBreak) break;
+        rule.onMatch(match, this);
       } else {
-        if (rule.noMatchAction) rule.noMatchAction(this);
+        rule.onNonMatch(this);
       }
+    }
+
+    for (const rule of onMatchRules) {
+      const match = line.match(rule.regex);
+      if (!match) continue;
+
+      match[1] = moment.utc(match[1], 'YYYY.MM.DD-hh.mm.ss:SSS').toDate();
+      match[2] = parseInt(match[2]);
+      rule.onMatch(match, this);
+      break;
     }
   }
 }

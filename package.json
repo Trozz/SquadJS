@@ -13,7 +13,8 @@
     "squad-server"
   ],
   "scripts": {
-    "lint": "eslint --fix . && prettier --write \"./**/*.js\""
+    "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
+    "test-log-parser-coverage": "node squad-server/log-parser/test-coverage.js"
   },
   "type": "module",
   "dependencies": {
